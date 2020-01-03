@@ -1,6 +1,6 @@
 # Criando meu primeiro jogo multiplayer com Javascript
 
-## Aula 01
+## Criando um servidor local com node
 
 - Para rodar o projeto, poder usar o comando **serve** que sobe um servidor local, diretamente da pasta do nosso projeto
 - Podemos instalar de duas formas:
