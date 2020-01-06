@@ -35,34 +35,59 @@
 			
 
 				function movePlayer(command) {
-					console.log(`Moving ${command.playerId} with ${command.keyPressed}`)
+					console.log(`game.movePlayer() -> Moving ${command.playerId} with ${command.keyPressed}`)
+
+					const acceptedMoves = {
+						ArrowUp(player) {
+							console.log('Moving player Up')
+
+							if (player.y - 1 >= 0) {
+								player.y = player.y - 1;
+								console.log('Up')
+								return
+							}
+
+						},
+						ArrowRight(player) {
+							console.log('Moving player Right')
+
+							if (player.x + 1 < screen.width ) {
+								player.x = player.x + 1;
+								console.log('Right')
+								return
+							}
+						},
+						ArrowDown(player) {
+							console.log('Moving player Down')
+
+							if (keyPressed == 'ArrowDown' && player.y + 1 < screen.height) {
+								player.y = player.y + 1;
+								console.log('down')
+								return
+							}	
+
+						},
+						ArrowLeft(player) {
+							console.log('Moving player Left')
+
+							if (keyPressed == 'ArrowLeft' && player.x - 1 >= 0 ) {
+								player.x = player.x - 1;
+								console.log('Left')
+								return
+							}
+
+						}
+					}
 
 					const keyPressed = command.keyPressed
 					const player = state.players[command.playerId]
+					const moveFunction = acceptedMoves[keyPressed];
 
-					if (keyPressed == 'ArrowUp' && player.y - 1 >= 0) {
-						player.y = player.y - 1;
-						console.log('Up')
-						return
+					if (moveFunction) {
+						moveFunction(player);
 					}
-
-					if (keyPressed == 'ArrowRight' && player.x + 1 < screen.width ) {
-						player.x = player.x + 1;
-						console.log('Right')
-						return
-					}
-
-					if (keyPressed == 'ArrowLeft' && player.x - 1 >= 0 ) {
-						player.x = player.x - 1;
-						console.log('Left')
-						return
-					}
-
-					if (keyPressed == 'ArrowDown' && player.y + 1 < screen.height) {
-						player.y = player.y + 1;
-						console.log('down')
-						return
-					}					
+					
+					return //temp
 				}
 
 				return {
@@ -86,7 +111,7 @@
 				}
 
 				function notifyAll(command) {
-					console.log(`Notifying ${state.observers.length} observers`);
+					console.log(`createKeyboardListener -> Notifying ${state.observers.length} observers`);
 
 					for(const observerFunction of state.observers) {
 						observerFunction(command);
